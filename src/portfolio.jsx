@@ -184,15 +184,14 @@ function App() {
         <div className="scroll-note">Scroll Down</div>
         <div className="hero-panel">
           <div className="hero-copy-block">
-            <p className="hero-badge">Available for Work</p>
+            <p className="hero-badge">Portfolio 2026</p>
             <h1 className="hero-title">
-              <span>Building Digital</span>
-              <span>Experiences &amp; AI</span>
-              <span>Solutions</span>
+              <span>Hamza</span>
+              <span>Shaikh</span>
             </h1>
             <p className="hero-copy">
-              I&apos;m Hamza Shaikh, a MERN Stack Developer and AI enthusiast building premium web applications
-              with futuristic UI and cinematic experiences.
+              Engineer by education, designer by instinct, and MERN developer building AI products, SaaS interfaces,
+              and cinematic web experiences with a strong visual impact.
             </p>
             <div className="hero-actions">
               <a className="primary-button" href="#projects">
@@ -231,68 +230,28 @@ function App() {
         ))}
       </section>
 
-      <section className="cinematic-showcase reveal" aria-label="Cinematic website video showcase">
-        <article className="cinematic-card">
-          <video
-            className="cinematic-video"
-            src="/cinematic-headphones.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label="Floating headphones cinematic product visual"
-          />
-          <div className="cinematic-shade" aria-hidden="true" />
-          <div className="cinematic-copy">
-            <span>Muted Cinematic Preview</span>
-            <h2>These product-style cinematic videos can be added across the website.</h2>
-            <p>
-              Large visual cards, fade-in pop motion, and silent looping video sections for premium portfolio,
-              startup, and product storytelling.
-            </p>
-          </div>
-        </article>
-        <article className="cinematic-card cinematic-card-food">
-          <video
-            className="cinematic-video"
-            src="/cinematic-food.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label="Tea product cinematic particle visual"
-          />
-          <div className="cinematic-shade" aria-hidden="true" />
-          <div className="cinematic-copy">
-            <span>Food Product Cinematics</span>
-            <h2>We can also create premium cinematic websites for food products.</h2>
-            <p>
-              Elegant ingredient reveals, product motion, and silent looping visuals for tea, coffee, snacks,
-              restaurants, and modern food brands.
-            </p>
-          </div>
-        </article>
-        <article className="cinematic-card cinematic-card-ai">
-          <video
-            className="cinematic-video"
-            src="/cinematic-ai-car.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label="AI cinematic car regeneration visual"
-          />
-          <div className="cinematic-shade" aria-hidden="true" />
-          <div className="cinematic-copy">
-            <span>AI Cinematic Websites</span>
-            <h2>Reach me out and we can make cool AI based cinematic websites.</h2>
-            <p>
-              Futuristic motion, product reveals, animated storytelling, and premium website sections that make
-              brands feel sharp, modern, and memorable.
-            </p>
-            <a className="cinematic-link" href="#contact">Reach Me Out</a>
-          </div>
-        </article>
+      <section id="projects" className="projects-section reveal">
+        <div className="section-heading editorial-heading">
+          <p className="section-kicker">Selected Works</p>
+          <h2>Clean product builds with strong engineering and visual direction.</h2>
+        </div>
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <article className="project-row project-card" key={project.name}>
+              <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+              <div className="project-row-main">
+                <h3>{project.name}</h3>
+                <p>{project.summary}</p>
+              </div>
+              <div className="project-tags">
+                {project.stack.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+              <a href="#contact" aria-label={`Discuss ${project.name}`}>Discuss</a>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section id="about" className="about-panel reveal">
@@ -349,26 +308,68 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="projects-section reveal">
-        <div className="section-heading">
-          <p className="section-kicker">Featured Projects</p>
-          <h2>Cinematic project cards built for serious product storytelling.</h2>
-        </div>
-        <div className="project-grid">
-          {projects.map((project) => (
-            <article className="project-card" key={project.name}>
-              <div className="project-thumb" />
-              <h3>{project.name}</h3>
-              <p>{project.summary}</p>
-              <div className="project-tags">
-                {project.stack.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-              <a href="#contact" aria-label={`Discuss ${project.name}`}>View Project</a>
-            </article>
-          ))}
-        </div>
+      <section className="cinematic-showcase reveal" aria-label="Cinematic website video showcase">
+        <article className="cinematic-card">
+          <video
+            className="cinematic-video"
+            src="/cinematic-headphones.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label="Floating headphones cinematic product visual"
+          />
+          <div className="cinematic-shade" aria-hidden="true" />
+          <div className="cinematic-copy">
+            <span>Cinematic Product Visuals</span>
+            <h2>Product-style cinematic videos can become premium website sections.</h2>
+            <p>
+              Large visual stories, fade-in motion, and silent looping video moments for portfolios, startups,
+              and product storytelling.
+            </p>
+          </div>
+        </article>
+        <article className="cinematic-card cinematic-card-food">
+          <video
+            className="cinematic-video"
+            src="/cinematic-food.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label="Tea product cinematic particle visual"
+          />
+          <div className="cinematic-shade" aria-hidden="true" />
+          <div className="cinematic-copy">
+            <span>Food Product Cinematics</span>
+            <h2>Premium cinematic websites can be created for food products.</h2>
+            <p>
+              Elegant ingredient reveals, product motion, and silent looping visuals for tea, coffee, snacks,
+              restaurants, and modern food brands.
+            </p>
+          </div>
+        </article>
+        <article className="cinematic-card cinematic-card-ai">
+          <video
+            className="cinematic-video"
+            src="/cinematic-ai-car.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label="AI cinematic car regeneration visual"
+          />
+          <div className="cinematic-shade" aria-hidden="true" />
+          <div className="cinematic-copy">
+            <span>AI Cinematic Websites</span>
+            <h2>Reach me out and we can make cool AI based cinematic websites.</h2>
+            <p>
+              Futuristic motion, product reveals, animated storytelling, and premium website sections that make
+              brands feel sharp, modern, and memorable.
+            </p>
+            <a className="cinematic-link" href="#contact">Reach Me Out</a>
+          </div>
+        </article>
       </section>
 
       <section id="services" className="service-strip">

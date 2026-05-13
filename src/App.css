@@ -279,7 +279,7 @@ textarea {
   display: grid;
   align-content: center;
   justify-items: start;
-  width: min(760px, 58%);
+  width: min(1100px, 78%);
   min-height: calc(100vh - 104px);
   padding: clamp(40px, 6vw, 92px);
 }
@@ -321,12 +321,14 @@ textarea {
 }
 
 .hero-title {
-  max-width: 720px;
+  max-width: 1180px;
   margin: 0;
   color: #ffffff;
-  font-size: clamp(3rem, 4.3vw, 5.35rem);
+  font-size: clamp(5rem, 12vw, 13.5rem);
   font-weight: 950;
-  line-height: 1.02;
+  line-height: 0.78;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .hero-title span {
@@ -334,24 +336,22 @@ textarea {
 }
 
 .hero-title span:nth-child(2) {
-  background: linear-gradient(90deg, #e5e7eb, #ffffff);
+  margin-top: 0.08em;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(229, 231, 235, 0.5));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .hero-title span:nth-child(3) {
-  background: linear-gradient(90deg, #9ca3af, #e5e7eb);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  display: none;
 }
 
 .hero-copy {
-  max-width: 620px;
-  margin: 18px 0 0;
+  max-width: 660px;
+  margin: 38px 0 0;
   color: #cbd5e1;
-  font-size: 1.06rem;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
   line-height: 1.85;
 }
 
@@ -505,6 +505,67 @@ textarea {
   gap: 1px;
   overflow: hidden;
   border-radius: 8px;
+}
+
+.editorial-heading {
+  align-items: start;
+}
+
+.project-list {
+  display: grid;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 74px minmax(260px, 1fr) minmax(220px, 0.42fr) auto;
+  gap: 24px;
+  align-items: center;
+  min-height: 148px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.project-row:hover {
+  border-color: rgba(248, 250, 252, 0.34);
+  box-shadow: none;
+  transform: none;
+}
+
+.project-index {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.project-row-main h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(2rem, 4.2vw, 4.9rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.project-row-main p {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: #94a3b8;
+  line-height: 1.65;
+}
+
+.project-row > a {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 96px;
+  color: #e5e7eb;
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
 }
 
 .metric-card {
@@ -1001,6 +1062,44 @@ textarea {
   font-weight: 900;
 }
 
+.project-row.project-card {
+  display: grid;
+  min-height: 148px;
+  padding: 28px 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  border-left: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.project-row.project-card:hover {
+  border-color: rgba(248, 250, 252, 0.34);
+  box-shadow: none;
+  transform: none;
+}
+
+.project-row.project-card a {
+  margin-top: 0;
+}
+
+.project-row.project-card .project-row-main h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(2rem, 4.2vw, 4.9rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.project-row.project-card .project-row-main p {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: #94a3b8;
+  line-height: 1.65;
+}
+
 .service-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1177,7 +1276,7 @@ textarea {
   }
 
   .hero-copy-block {
-    width: min(760px, 82%);
+    width: min(960px, 88%);
   }
 
   .about-visual {
@@ -1188,6 +1287,16 @@ textarea {
   .timeline-list,
   .testimonial-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-row {
+    grid-template-columns: 52px 1fr;
+    gap: 18px;
+  }
+
+  .project-row .project-tags,
+  .project-row > a {
+    grid-column: 2;
   }
 
   .service-strip,
@@ -1216,9 +1325,25 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .project-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    min-height: auto;
+    padding: 24px 0;
+  }
+
+  .project-row .project-tags,
+  .project-row > a {
+    grid-column: auto;
+  }
+
   .hero-copy-block {
     width: 100%;
     padding: 28px;
+  }
+
+  .hero-title {
+    font-size: clamp(4.2rem, 22vw, 7.6rem);
   }
 
   .hero-visual-wrap {
