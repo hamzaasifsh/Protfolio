@@ -55,6 +55,12 @@ const demoWebsites = [
     url: 'https://funfair-vendor.vercel.app/',
     stack: ['Live Demo', 'Vercel', 'Vendor UI'],
   },
+  {
+    name: 'Apple Web',
+    summary: 'Premium smart watch landing page demo with a cinematic Apple-style product experience.',
+    url: 'https://demo-web-smart-watch-webiste.vercel.app/',
+    stack: ['Live Demo', 'Vercel', 'Smart Watch UI'],
+  },
 ]
 
 const services = [
