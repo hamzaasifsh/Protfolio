@@ -48,6 +48,15 @@ const projects = [
   },
 ]
 
+const demoWebsites = [
+  {
+    name: 'FunFair Vendor',
+    summary: 'Live vendor home page published on Vercel for the FunFair commerce experience.',
+    url: 'https://funfair-vendor.vercel.app/',
+    stack: ['Live Demo', 'Vercel', 'Vendor UI'],
+  },
+]
+
 const services = [
   ['AI Startup UI', 'Cinematic landing pages with premium product storytelling'],
   ['Frontend Systems', 'Scalable React interfaces with clean component structure'],
@@ -66,6 +75,42 @@ function App() {
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const root = rootRef.current
+
+    const handleAnchorClick = (event) => {
+      const link = event.target.closest('a[href^="#"]')
+
+      if (!link || !root?.contains(link)) {
+        return
+      }
+
+      const targetId = link.getAttribute('href')
+      const target = targetId && document.querySelector(targetId)
+
+      if (!target) {
+        return
+      }
+
+      event.preventDefault()
+
+      const offset = 24
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - offset
+
+      window.scrollTo({
+        top: Math.max(targetTop, 0),
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      })
+
+      window.history.pushState(null, '', targetId)
+    }
+
+    root?.addEventListener('click', handleAnchorClick)
+
+    return () => root?.removeEventListener('click', handleAnchorClick)
+  }, [])
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const context = gsap.context(() => {
       if (reduceMotion) {
@@ -78,15 +123,8 @@ function App() {
         return undefined
       }
 
-      const onPointerMove = (event) => {
-        rootRef.current?.style.setProperty('--mouse-x', `${event.clientX}px`)
-        rootRef.current?.style.setProperty('--mouse-y', `${event.clientY}px`)
-      }
-      window.addEventListener('pointermove', onPointerMove)
-
       gsap
         .timeline({ defaults: { ease: 'power3.out' } })
-        .from('.site-nav', { y: -28, opacity: 0, duration: 0.8 })
         .from('.hero-badge', { y: 14, opacity: 0, duration: 0.55 }, '-=0.35')
         .from('.hero-title span', { y: 42, opacity: 0, duration: 0.8, stagger: 0.08 }, '-=0.25')
         .from('.hero-copy, .hero-actions, .social-row', { y: 22, opacity: 0, duration: 0.65, stagger: 0.1 }, '-=0.3')
@@ -152,34 +190,43 @@ function App() {
         stagger: 0.08,
         ease: 'power3.out',
       })
-
-      return () => window.removeEventListener('pointermove', onPointerMove)
+      return undefined
     }, rootRef)
 
     return () => context.revert()
   }, [])
 
+  useEffect(() => {
+    const videos = Array.from(document.querySelectorAll('.cinematic-video'))
+
+    if (!('IntersectionObserver' in window)) {
+      videos.forEach((video) => video.play().catch(() => undefined))
+      return undefined
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target
+
+          if (entry.isIntersecting) {
+            video.play().catch(() => undefined)
+            return
+          }
+
+          video.pause()
+        })
+      },
+      { rootMargin: '160px 0px', threshold: 0.2 },
+    )
+
+    videos.forEach((video) => observer.observe(video))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main ref={rootRef} className="portfolio-shell">
-      <nav className="site-nav" aria-label="Main navigation">
-        <a className="brand" href="#home" aria-label="Hamza portfolio home">
-          <span>&lt;/&gt;</span>
-          HAMZA.
-        </a>
-        <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#services">Services</a>
-          <a href="#experience">Experience</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <a className="nav-cta" href="#contact">
-          Hire Me
-        </a>
-      </nav>
-
       <section id="home" className="hero-section">
         <div className="scroll-note">Scroll Down</div>
         <div className="hero-panel">
@@ -228,6 +275,34 @@ function App() {
             <span>{label}</span>
           </div>
         ))}
+      </section>
+
+      <section id="demos" className="demo-section reveal">
+        <div className="section-heading editorial-heading">
+          <p className="section-kicker">Demo Websites</p>
+          <h2>Live websites you can open and experience directly.</h2>
+        </div>
+        <div className="demo-card-grid">
+          {demoWebsites.map((demo) => (
+            <article className="demo-card" key={demo.name}>
+              <div className="demo-preview">
+                <span>Live Preview</span>
+              </div>
+              <div className="demo-card-copy">
+                <h3>{demo.name}</h3>
+                <p>{demo.summary}</p>
+                <div className="project-tags">
+                  {(demo.stack ?? []).map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
+              <a className="demo-link" href={demo.url} target="_blank" rel="noreferrer">
+                Click Me
+              </a>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section id="projects" className="projects-section reveal">
@@ -313,10 +388,10 @@ function App() {
           <video
             className="cinematic-video"
             src="/cinematic-headphones.mp4"
-            autoPlay
             muted
             loop
             playsInline
+            preload="metadata"
             aria-label="Floating headphones cinematic product visual"
           />
           <div className="cinematic-shade" aria-hidden="true" />
@@ -333,10 +408,10 @@ function App() {
           <video
             className="cinematic-video"
             src="/cinematic-food.mp4"
-            autoPlay
             muted
             loop
             playsInline
+            preload="metadata"
             aria-label="Tea product cinematic particle visual"
           />
           <div className="cinematic-shade" aria-hidden="true" />
@@ -353,16 +428,17 @@ function App() {
           <video
             className="cinematic-video"
             src="/cinematic-ai-car.mp4"
-            autoPlay
             muted
             loop
             playsInline
+            preload="metadata"
             aria-label="AI cinematic car regeneration visual"
           />
           <div className="cinematic-shade" aria-hidden="true" />
           <div className="cinematic-copy">
             <span>AI Cinematic Websites</span>
-            <h2>Reach me out and we can make cool AI based cinematic websites.</h2>
+            <h2>Reach me out and we can make cool AI based cinematic websites
+              With highe Qulatiy AI videous and nice UI/UX that will attract your Customers.</h2>
             <p>
               Futuristic motion, product reveals, animated storytelling, and premium website sections that make
               brands feel sharp, modern, and memorable.
